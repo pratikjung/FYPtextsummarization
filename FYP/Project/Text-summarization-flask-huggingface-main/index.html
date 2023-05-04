@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+    <title>TEXT SUMMARIZATION</title>
+</head>
+
+<<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #fbbb5b !important;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TEXT SUMMARIZATION</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+    </nav>
+
+    <div class="container w-100">
+        <div class="row justify-content-md-center">
+
+            <div class="col">
+                <br>
+                <form id="summarization-form" method="post" action="{{ url_for('summarize') }}" >
+                    <div class="form-group">
+                        <textarea class="form-control" name="inputtext_" id="inputtext_" rows="20" style="resize: none;"></textarea>
+                    </div>
+                    <br>
+
+                    <button type="submit" class="btn btn-secondary float-right" style="background-color: #13c9ca !important;">Text Summarization</button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // get a reference to the form
+        const form = document.getElementById('summarization-form');
+
+        // add an event listener for form submission
+        form.addEventListener('submit', function(event) {
+            // prevent the form from submitting if there are errors
+            event.preventDefault();
+
+            // get a reference to the input field
+            const inputField = document.getElementById('inputtext_');
+
+            // get the input value
+            const inputValue = inputField.value;
+
+            // check if the input value is empty or only contains whitespace
+            if (!inputValue.trim()) {
+    // if it's empty or only contains whitespace, display another error message
+    inputField.classList.add('is-invalid');
+    inputField.setCustomValidity('Text is required');
+} else if (inputValue.length < 30) {
+    // if it is, display an error message
+    inputField.classList.add('is-invalid');
+    inputField.setCustomValidity('Text must be at least 30 characters');
+} else {
+    // if it's valid, remove any error messages and submit the form
+    inputField.classList.remove('is-invalid');
+    inputField.setCustomValidity('');
+    form.submit();
+}
+        });
+    </script>
+
+</body>
+
+</html>
